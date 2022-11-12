@@ -10,8 +10,6 @@ connect();
 app.use(json());
 app.use('/', todoRoute);
 app.use(urlencoded({extended: true}));
-// app.use(express.static("public"));
-// app.set("view engines", "ejs");
 
 
 

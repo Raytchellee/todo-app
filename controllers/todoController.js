@@ -1,5 +1,4 @@
 const Todo = require('../models/todo');
-// const { param } = require('../routes/routes');
 
 //get all todo
 exports.getAllTodos = async (req,res) => {
@@ -133,13 +132,3 @@ exports.deleteTodo = async (req,res) => {
     }
 }
 
-
-
-
-    // let clean = new Todo({
-    //     title: 'Cleaning',
-    //     description: 'Cleaning out the house'
-    // })
-
-    // await clean.save();
-    // console.log(clean); 
