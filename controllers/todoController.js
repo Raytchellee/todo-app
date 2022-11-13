@@ -29,7 +29,7 @@ exports.getAllTodos = async (req, res) => {
       todo,
       currentPage: page,
       totalPages: Math.ceil(count / limit),
-      totalTodos: Todo.length,
+      totalTodos: todo.length,
     });
   } catch (e) {
     res.status(500).json({
