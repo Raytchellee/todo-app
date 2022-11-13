@@ -3,7 +3,15 @@ const Todo = require('../models/todo');
 //get all todo
 exports.getAllTodos = async (req,res) => {
     try {
-        let todo = await Todo.find();
+        //accepts a req with page and limit entries
+        let { page = 1, limit = 10 } = req.body;
+        if(page < 1) page = 1;
+
+        let todo = await Todo.find()
+            .limit(limit*1)
+            .skip((page-1) * limit)
+            .exec();
+
         if (todo.length == 0){
             //try using return if it fails
             return res.status(404).json({
@@ -11,10 +19,16 @@ exports.getAllTodos = async (req,res) => {
                 message: 'No Todos found!'
             })
         }
+        //get total count
+        const count = await Todo.countDocuments();
+
+        //send final result
         res.status(200).json({
             success: true,
             message: 'Todos found!',
             todo,
+            currentPage: page,
+            totalPages: Math.ceil(count/limit)
         })
     } catch (e) {
         res.status(500).json({
