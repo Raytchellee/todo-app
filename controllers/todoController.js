@@ -7,6 +7,7 @@ exports.getAllTodos = async (req, res) => {
     let { page = 1, limit = 10 } = req.body;
     if (page < 1) page = 1;
 
+    let totalTodos = await Todo.find();
     let todo = await Todo.find()
       .limit(limit * 1)
       .skip((page - 1) * limit)
@@ -29,7 +30,7 @@ exports.getAllTodos = async (req, res) => {
       todo,
       currentPage: page,
       totalPages: Math.ceil(count / limit),
-      totalTodos: todo.length,
+      totalTodos: totalTodos.length,
     });
   } catch (e) {
     res.status(500).json({
